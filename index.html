@@ -316,6 +316,59 @@
             }
         };
 
+        // Medidas específicas propuestas para los 12 puestos, según la tabla de intervención de la investigación.
+        // Se muestran cuando el resultado global es crítico o alcanza la meta; el estado moderado conserva las recomendaciones de seguimiento.
+        const thesisMeasures = {
+            "Asesor(a) de Créditos": {
+                critical: `<p>Clínica obligatoria de gestión del riesgo crediticio y acompañamiento en las visitas identificadas como críticas, con seguimiento de las mejoras alcanzadas.</p>`,
+                optimal: `<p>Asignación de una cartera de mayor complejidad y consideración prioritaria para participar en procesos internos de selección al puesto de Asesor Senior.</p>`
+            },
+            "Cajero(a)": {
+                critical: `<p>Reentrenamiento obligatorio en procedimientos de caja, cuadre y detección de billetes falsos, acompañado de supervisión reforzada hasta demostrar el dominio requerido.</p>`,
+                optimal: `<p>Habilitación para desempeñarse como Tesorero Suplente, previa validación de competencias y autorización institucional.</p>`
+            },
+            "Promotor(a) de QR": {
+                critical: `<p>Acompañamiento de un Asesor experimentado en afiliaciones que presenten dificultades y seguimiento individual de las metas de captación y activación de comercios.</p>`,
+                optimal: `<p>Reconocimiento por resultados destacados en afiliación y activación de comercios, con posibilidad de flexibilizar las rutas de trabajo según los resultados y las necesidades operativas.</p>`
+            },
+            "Asesor(a) de Plataforma": {
+                critical: `<p>Reentrenamiento en procedimientos de atención, resolución de consultas y orientación sobre servicios financieros, con verificación posterior de su aplicación.</p>`,
+                optimal: `<p>Consideración para participar en procesos internos de selección a cargos de mayor responsabilidad en atención al cliente u operaciones, de acuerdo con el perfil requerido.</p>`
+            },
+            "Encargado de Negocios": {
+                critical: `<p>Plan de mejora en gestión comercial, seguimiento de cartera y supervisión del desempeño de los Asesores de Créditos, con revisión periódica de los resultados.</p>`,
+                optimal: `<p>Consideración para procesos internos de promoción a cargos de gestión comercial regional o de mayor responsabilidad, conforme a los requisitos institucionales.</p>`
+            },
+            "Encargado de Operaciones de Agencia": {
+                critical: `<p>Supervisión reforzada de los procedimientos críticos y ejecución de un plan correctivo orientado a reducir errores operativos y fortalecer los controles internos.</p>`,
+                optimal: `<p>Postulación prioritaria a programas especializados de capacitación en operaciones bancarias, control interno y gestión de riesgos, incluidos programas internacionales cuando estén disponibles.</p>`
+            },
+            "Gerente de Agencia": {
+                critical: `<p>Plan de mejora en liderazgo, planificación comercial, administración de recursos y gestión de riesgos, con seguimiento de los indicadores de la agencia.</p>`,
+                optimal: `<p>Consideración para procesos internos de selección a puestos de dirección o gestión regional, en función de los resultados integrales de la agencia y de los requisitos del cargo.</p>`
+            },
+            "Asistente de Inversiones": {
+                critical: `<p>Revisión supervisada de las operaciones y reentrenamiento en los procedimientos, registros y documentación de inversiones que presenten brechas.</p>`,
+                optimal: `<p>Asignación progresiva de operaciones de mayor complejidad y ampliación de su autonomía técnica, dentro de las atribuciones autorizadas del puesto.</p>`
+            },
+            "Secretaria Regional": {
+                critical: `<p>Plan de mejora en organización documental, gestión de agenda, seguimiento de plazos y manejo confidencial de la información institucional.</p>`,
+                optimal: `<p>Otorgamiento de un beneficio no monetario autorizado, como flexibilidad horaria ocasional, sujeto al cumplimiento de las responsabilidades y a las necesidades del servicio.</p>`
+            },
+            "Auxiliar en Administración": {
+                critical: `<p>Reentrenamiento en registros administrativos, control de inventarios, documentación y uso eficiente de los recursos institucionales.</p>`,
+                optimal: `<p>Reconocimiento por resultados verificables en optimización de recursos y consideración para asumir funciones administrativas de mayor complejidad, de acuerdo con las necesidades del área.</p>`
+            },
+            "Ingeniero de Sistemas": {
+                critical: `<p>Plan de mejora técnica en las áreas identificadas, con seguimiento de incidentes, cumplimiento de protocolos de seguridad y documentación de las soluciones implementadas.</p>`,
+                optimal: `<p>Financiamiento institucional de una certificación tecnológica especializada o asignación de proyectos de mayor complejidad técnica, según las prioridades del área.</p>`
+            },
+            "Encargado Regional de Asuntos Legales": {
+                critical: `<p>Revisión reforzada de documentos y procedimientos, actualización normativa en las áreas identificadas y seguimiento de los plazos legales correspondientes.</p>`,
+                optimal: `<p>Reconocimiento institucional por la prevención efectiva de riesgos legales y consideración para asumir responsabilidades de mayor alcance en la gestión jurídica, conforme a la estructura organizacional.</p>`
+            }
+        };
+
         let radarChartInstance = null;
 
         function renderDimensions() {
@@ -417,7 +470,7 @@
             document.getElementById('repGeneralStrategy').innerHTML = generalStrategy.map(item => `<li>${item}</li>`).join('');
             document.getElementById('repRoleSpecificTitle').innerText = `Plan de acción orientativo - Puesto: ${role}`;
 
-            const strategy = roleStrategies[role] && roleStrategies[role][stateKey];
+            const strategy = (thesisMeasures[role] && thesisMeasures[role][stateKey]) || (roleStrategies[role] && roleStrategies[role][stateKey]);
             if (strategy) {
                 document.getElementById('repSpecificMeasures').innerHTML = strategy;
             } else {
